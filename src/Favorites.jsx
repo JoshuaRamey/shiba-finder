@@ -1,13 +1,10 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Fab from "@material-ui/core/Fab";
-
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const useStyles = makeStyles(theme => ({
   fab: {
@@ -53,25 +50,13 @@ export default function Favorites(props) {
             {dog.name}
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
-            Distance: (x) Km
+            Distance: {dog.distance} Km
           </Typography>
-          <Fab
-            color="primary"
-            aria-label="Add"
-            className={classes.fab}
-            onClick={() => props.dislike(dog)}
-          >
-            <FontAwesomeIcon icon={faTimes} size="2x" />
-          </Fab>
-          <Fab
-            color="secondary"
-            aria-label="Edit"
-            className={classes.fab}
-            onClick={() => props.favorite(dog)}
-          >
-            <FontAwesomeIcon icon={faHeart} size="2x" />
-          </Fab>
         </CardContent>
+        <CardActions>
+          <Button size="small">Remove</Button>
+          <Button size="small">Take a Walk</Button>
+        </CardActions>
       </Card>
     );
   });

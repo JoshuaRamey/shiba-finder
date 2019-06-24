@@ -9,6 +9,9 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import Swing from "react-swing";
+// import { Direction } from "swing";
+
 const useStyles = makeStyles(theme => ({
   fab: {
     margin: theme.spacing(1)
@@ -46,33 +49,40 @@ export default function DogCards(props) {
 
   return props.doggos.map(dog => {
     return (
-      <Card key={dog.image} className={classes.card}>
-        <CardContent>
-          <img className={classes.image} src={dog.image} alt="poop" />
-          <Typography variant="h5" component="h2">
-            {dog.name}
-          </Typography>
-          <Typography className={classes.pos} color="textSecondary">
-            Distance: (x) Km
-          </Typography>
-          <Fab
-            color="primary"
-            aria-label="Add"
-            className={classes.fab}
-            onClick={() => props.dislike(dog)}
-          >
-            <FontAwesomeIcon icon={faTimes} size="2x" />
-          </Fab>
-          <Fab
-            color="secondary"
-            aria-label="Edit"
-            className={classes.fab}
-            onClick={() => props.favorite(dog)}
-          >
-            <FontAwesomeIcon icon={faHeart} size="2x" />
-          </Fab>
-        </CardContent>
-      </Card>
+      <Swing
+        key={dog.image + dog.name}
+        throwoutleft={() => props.dislike(dog)}
+        throwoutright={() => props.favorite(dog)}
+        dragmove={null}
+      >
+        <Card className={classes.card}>
+          <CardContent>
+            <img className={classes.image} src={dog.image} alt="poop" />
+            <Typography variant="h5" component="h2">
+              {dog.name}
+            </Typography>
+            <Typography className={classes.pos} color="textSecondary">
+              Distance: {dog.distance} Km
+            </Typography>
+            <Fab
+              color="primary"
+              aria-label="Add"
+              className={classes.fab}
+              onClick={() => props.dislike(dog)}
+            >
+              <FontAwesomeIcon icon={faTimes} size="2x" />
+            </Fab>
+            <Fab
+              color="secondary"
+              aria-label="Edit"
+              className={classes.fab}
+              onClick={() => props.favorite(dog)}
+            >
+              <FontAwesomeIcon icon={faHeart} size="2x" />
+            </Fab>
+          </CardContent>
+        </Card>
+      </Swing>
     );
   });
 }

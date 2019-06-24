@@ -4,6 +4,7 @@ import dogNames from "dog-names";
 
 import DogCards from "./DogCards";
 import Favorites from "./Favorites";
+import Navigation from "./Navigation";
 
 import "./styles.css";
 
@@ -28,7 +29,11 @@ class App extends React.Component {
           return this.setState({
             doggos: [
               ...this.state.doggos,
-              { name: dogNames.allRandom(), image: photo }
+              {
+                name: dogNames.allRandom(),
+                image: photo,
+                distance: Math.floor(Math.random() * 10)
+              }
             ]
           });
         });
@@ -38,38 +43,39 @@ class App extends React.Component {
       });
   }
   render() {
-    // console.log(this.state.favoriteDoggos);
     return (
-      <div className="content">
-        {/* <h1>Hello CodeSandbox</h1>
-        <h2>Start editing to see some magic happen!</h2> */}
-        <button onClick={() => this.setState({ view: "favorites" })}>
-          View Favorites
-        </button>
-        {this.state.view === "doggos" ? (
-          <DogCards
-            doggos={this.state.doggos}
-            dislike={() => {
-              const array = [...this.state.doggos];
-              array.splice(-1, 1);
-              this.setState({ doggos: array });
-            }}
-            favorite={dog => {
-              const array = [...this.state.doggos];
-              // const index = array.indexOf(dog);
-              const temp = { name: dog.name, image: dog.image };
-              // temp.push(array[index]);
-              // const last = this.state.doggos[index];
-              array.splice(-1, 1);
-              this.setState({
-                favoriteDoggos: [...this.state.favoriteDoggos, temp],
-                doggos: array
-              });
-            }}
-          />
-        ) : (
-          <Favorites matches={this.state.favoriteDoggos} />
-        )}
+      <div>
+        <Navigation
+          dogView={() => {
+            this.setState({ view: "doggos" });
+          }}
+          favoritesView={() => {
+            this.setState({ view: "favorites" });
+          }}
+        />
+        <div className="content">
+          {this.state.view === "doggos" ? (
+            <DogCards
+              doggos={this.state.doggos}
+              dislike={() => {
+                const array = [...this.state.doggos];
+                array.splice(-1, 1);
+                this.setState({ doggos: array });
+              }}
+              favorite={dog => {
+                const array = [...this.state.doggos];
+                const temp = { name: dog.name, image: dog.image };
+                array.splice(-1, 1);
+                this.setState({
+                  favoriteDoggos: [...this.state.favoriteDoggos, temp],
+                  doggos: array
+                });
+              }}
+            />
+          ) : (
+            <Favorites matches={this.state.favoriteDoggos} />
+          )}
+        </div>
       </div>
     );
   }

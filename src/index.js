@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import dogNames from "dog-names";
+import Swipe from "react-easy-swipe";
 
 import DogCards from "./DogCards";
 import Favorites from "./Favorites";
@@ -14,7 +15,9 @@ class App extends React.Component {
     this.state = {
       doggos: [],
       favoriteDoggos: [],
-      view: "doggos"
+      view: "doggos",
+      xDown: null,
+      yDown: null
     };
   }
 
@@ -42,6 +45,40 @@ class App extends React.Component {
         console.log(error.message);
       });
   }
+
+  onSwipeStart(event) {
+    console.log("Start swiping...", event);
+  }
+
+  onSwipeMove(position, event) {
+    console.log(`Moved ${position.x} pixels horizontally`, event);
+    console.log(`Moved ${position.y} pixels vertically`, event);
+  }
+
+  onSwipeEnd(event) {
+    console.log("End swiping...", event);
+  }
+
+  dislike() {
+    const array = [...this.state.doggos];
+    array.splice(-1, 1);
+    this.setState({ doggos: array });
+  }
+
+  favourite() {
+    const array = [...this.state.doggos];
+    const temp = {
+      name: array[array.length - 1].name,
+      image: array[array.length - 1].image,
+      distance: array[array.length - 1].distance
+    };
+    array.splice(-1, 1);
+    this.setState({
+      favoriteDoggos: [...this.state.favoriteDoggos, temp],
+      doggos: array
+    });
+  }
+
   render() {
     return (
       <div>
@@ -55,25 +92,30 @@ class App extends React.Component {
         />
         <div className="content">
           {this.state.view === "doggos" ? (
-            <DogCards
-              doggos={this.state.doggos}
-              dislike={() => {
-                const array = [...this.state.doggos];
-                array.splice(-1, 1);
-                this.setState({ doggos: array });
-              }}
-              favorite={dog => {
-                const array = [...this.state.doggos];
-                const temp = { name: dog.name, image: dog.image };
-                array.splice(-1, 1);
-                this.setState({
-                  favoriteDoggos: [...this.state.favoriteDoggos, temp],
-                  doggos: array
-                });
+            <Swipe
+              onSwipeStart={this.onSwipeStart}
+              onSwipeMove={this.onSwipeMove}
+              onSwipeEnd={this.onSwipeEnd}
+              onSwipeLeft={() => this.dislike()}
+              onSwipeRight={() => this.favourite()}
+            >
+              <DogCards
+                doggos={this.state.doggos}
+                dislike={() => {
+                  this.dislike();
+                }}
+                favorite={() => this.favourite()}
+              />
+            </Swipe>
+          ) : (
+            <Favorites
+              matches={this.state.favoriteDoggos}
+              removeFavorite={index => {
+                const array = [...this.state.favoriteDoggos];
+                array.splice(index, 1);
+                this.setState({ favoriteDoggos: array });
               }}
             />
-          ) : (
-            <Favorites matches={this.state.favoriteDoggos} />
           )}
         </div>
       </div>

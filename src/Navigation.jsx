@@ -11,7 +11,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    maxWidth: 500
+    // maxWidth: 500,
+    width: "100%"
   }
 });
 
@@ -35,14 +36,13 @@ export default function Navigation(props) {
         <Tab
           icon={<FontAwesomeIcon icon={faHome} size="lg" />}
           aria-label="Home"
-          onClick={props.dogView}
+          onClick={() => props.dogView()}
         />
         <Tab
           icon={<FavoriteIcon />}
           aria-label="Favorite"
-          onClick={props.favoritesView}
+          onClick={() => props.favoritesView()}
         />
-        {/* <Tab icon={<PersonPinIcon />} aria-label="Person" /> */}
       </Tabs>
     </Paper>
   );

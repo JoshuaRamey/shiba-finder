@@ -41,7 +41,7 @@ const useStyles = makeStyles(theme => ({
 export default function Favorites(props) {
   const classes = useStyles();
 
-  return props.matches.map(dog => {
+  return props.matches.map((dog, index) => {
     return (
       <Card key={dog.image} className={classes.card}>
         <CardContent>
@@ -54,7 +54,9 @@ export default function Favorites(props) {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small">Remove</Button>
+          <Button size="small" onClick={() => props.removeFavorite(index)}>
+            Remove
+          </Button>
           <Button size="small">Take a Walk</Button>
         </CardActions>
       </Card>

@@ -46,19 +46,6 @@ class App extends React.Component {
       });
   }
 
-  onSwipeStart(event) {
-    console.log("Start swiping...", event);
-  }
-
-  onSwipeMove(position, event) {
-    console.log(`Moved ${position.x} pixels horizontally`, event);
-    console.log(`Moved ${position.y} pixels vertically`, event);
-  }
-
-  onSwipeEnd(event) {
-    console.log("End swiping...", event);
-  }
-
   dislike() {
     const array = [...this.state.doggos];
     array.splice(-1, 1);

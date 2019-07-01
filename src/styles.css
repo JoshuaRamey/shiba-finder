@@ -51,7 +51,7 @@
 }
 
 .dogName {
-  font-size: 2rem;
+  font-size: 1.5rem;
   margin-bottom: 1rem;
 }
 
@@ -70,8 +70,8 @@
 
 .dislikeButton {
   border: none;
-  height: 5rem;
-  width: 5rem;
+  height: 4.5rem;
+  width: 4.5rem;
   border-radius: 100%;
   background-color: #805af1;
   color: #ffffff;
@@ -80,8 +80,8 @@
 
 .heartButton {
   border: none;
-  height: 5rem;
-  width: 5rem;
+  height: 4.5rem;
+  width: 4.5rem;
   border-radius: 100%;
   background-color: #ff7373;
   color: #ffffff;

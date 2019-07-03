@@ -3,7 +3,7 @@ import React from "react";
 export default function Favorites(props) {
   return props.matches.map((dog, index) => {
     return (
-      <div className="card">
+      <div key={dog.image} className="favoriteCard">
         <img className="profileImage" src={dog.image} alt="dog.name" />
         <h2 className="dogName">{dog.name}</h2>
         <p className="dogDistance">Distance: {dog.distance} Km</p>

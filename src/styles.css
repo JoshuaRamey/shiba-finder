@@ -42,6 +42,20 @@
   background-color: #ffffff;
 }
 
+.favoriteCard {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  background-color: #ffffff;
+  border-bottom: 1px solid #292929;
+  border-width: 80%;
+  margin-bottom: 2rem;
+}
+
 .profileImage {
   width: 20rem;
   height: 20rem;

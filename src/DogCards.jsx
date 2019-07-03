@@ -8,7 +8,7 @@ export default function DogCards(props) {
   return props.doggos.map(dog => {
     return (
       <div>
-        <div className="card">
+        <div key={dog.image} className="card">
           <img className="profileImage" src={dog.image} alt="dog.name" />
           <h2 className="dogName">{dog.name}</h2>
           <p className="dogDistance">Distance: {dog.distance} Km</p>
